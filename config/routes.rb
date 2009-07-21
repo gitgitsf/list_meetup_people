@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :job_titles
+
+  map.resources :members
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -41,3 +45,15 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
+#== Route Map
+# Generated on 07 Jul 2009 14:46
+#
+#     members GET    /members(.:format)                 {:controller=>"members", :action=>"index"}
+#             POST   /members(.:format)                 {:controller=>"members", :action=>"create"}
+#  new_member GET    /members/new(.:format)             {:controller=>"members", :action=>"new"}
+# edit_member GET    /members/:id/edit(.:format)        {:controller=>"members", :action=>"edit"}
+#      member GET    /members/:id(.:format)             {:controller=>"members", :action=>"show"}
+#             PUT    /members/:id(.:format)             {:controller=>"members", :action=>"update"}
+#             DELETE /members/:id(.:format)             {:controller=>"members", :action=>"destroy"}
+#                    /:controller/:action/:id           
+#                    /:controller/:action/:id(.:format) 

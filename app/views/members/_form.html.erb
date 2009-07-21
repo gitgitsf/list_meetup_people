@@ -1,0 +1,37 @@
+  <p>
+    <%= f.label :first %><br />
+    <%= f.text_field :first %>
+  </p>
+  <p>
+    <%= f.label :last %><br />
+    <%= f.text_field :last %>
+  </p>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :company %><br />
+    <%= f.text_field :company %>
+  </p>
+  <p>
+    <%= f.label :title %><br />
+    <%#= f.text_field :title %>     
+      
+    <%# :member is the module contains the foreign key, job_title_id %>
+    <%# @job_titles contains all the titles from job_title module %>
+    <%= collection_select :member, :job_title_id, @job_titles, 
+       :id, :title, {:prompt => true} %>
+  </p> 
+  
+  <p>   
+    <%= f.label :gender_female %>  
+    <%= f.radio_button :gender, "Female"  %>   
+&nbsp;&nbsp;   
+    <%= f.label :gender_male %> 
+    <%= f.radio_button :gender, "Male"  %> 
+
+  </p>
+  <p>
+    <%= f.submit button_text %>
+  </p>
