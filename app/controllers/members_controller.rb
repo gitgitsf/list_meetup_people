@@ -1,7 +1,8 @@
 class MembersController < ApplicationController   
   
   before_filter :get_job_titles , :only => [ :new, :create, :edit, :update ]    
-  
+  before_filter :authenticated?, :except => [:index ]
+    
   # GET /members
   # GET /members.xml
   def index
@@ -85,10 +86,22 @@ class MembersController < ApplicationController
       format.html { redirect_to(members_url) }
       format.xml  { head :ok }
     end
+  end    
+  
+  def authenticated?
+    if !logged_in?
+      flash[:notice] = "You must login to do that"
+      #redirect_to root_path
+      redirect_to members_path   #mt add: show user all topics after login
+      false
+    end 
   end     
+    
+   
   
   private
   def  get_job_titles
     @job_titles = JobTitle.all
-  end
+  end     
+  
 end
