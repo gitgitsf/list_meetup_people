@@ -29,7 +29,7 @@ class MembersController < ApplicationController
   # GET /members/new
   # GET /members/new.xml
   def new
-    @member = Member.new
+    @member = Member.new(:gender => "Male")
 
     respond_to do |format|
       format.html # new.html.erb
