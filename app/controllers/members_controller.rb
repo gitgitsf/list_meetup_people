@@ -1,5 +1,5 @@
 class MembersController < ApplicationController   
-  require 'digest/sha1'
+    
   before_filter :get_job_titles , :only => [ :new, :create, :edit, :update ]    
   before_filter :authenticated?, :except => [:index ]
   before_filter :authenticate, :only => [:destroy ]
@@ -93,22 +93,14 @@ class MembersController < ApplicationController
   def authenticated?
     if !logged_in?
       flash[:notice] = "You must login to do that"
-      #redirect_to root_path
-      redirect_to members_path   #mt add: show user all topics after login
+      redirect_to root_path
+      #redirect_to members_path   #mt add: show user all topics after login
       false
     end 
   end     
     
    
- protected
-
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password|
-     # username == "admin" && password == "bar"
-      username == "admin" && (Digest::SHA1.hexdigest(password) == "0583168ad74a1282d2dfe7caacd5859466cdf722")
-    end  
-  end
-  
+ 
   private
   def  get_job_titles
     @job_titles = JobTitle.all
