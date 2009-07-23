@@ -1,7 +1,8 @@
 class MembersController < ApplicationController   
-  
+  require 'digest/sha1'
   before_filter :get_job_titles , :only => [ :new, :create, :edit, :update ]    
   before_filter :authenticated?, :except => [:index ]
+  before_filter :authenticate, :only => [:destroy ]
     
   # GET /members
   # GET /members.xml
@@ -29,7 +30,8 @@ class MembersController < ApplicationController
   # GET /members/new
   # GET /members/new.xml
   def new
-    @member = Member.new(:gender => "Male")
+    @member = Member.new(:gender => "Male") 
+    #:gender =>"Male" - this set radio button of Male button is selected.
 
     respond_to do |format|
       format.html # new.html.erb
@@ -98,6 +100,14 @@ class MembersController < ApplicationController
   end     
     
    
+ protected
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+     # username == "admin" && password == "bar"
+      username == "admin" && (Digest::SHA1.hexdigest(password) == "0583168ad74a1282d2dfe7caacd5859466cdf722")
+    end  
+  end
   
   private
   def  get_job_titles
