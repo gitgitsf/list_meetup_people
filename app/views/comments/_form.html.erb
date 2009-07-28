@@ -1,0 +1,14 @@
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content, :cols => "68", :rows => "12" %>
+  </p>
+
+  <p>   
+    <%= f.label :share_public %>  
+    <%= f.radio_button :share, "Public"  %>   
+&nbsp;&nbsp;   
+    <%= f.label :share_private %> 
+    <%= f.radio_button :share, "Private"  %> 
+
+    <%= f.submit button_text %>
+  </p>

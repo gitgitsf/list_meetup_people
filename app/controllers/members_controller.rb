@@ -19,7 +19,14 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.xml
   def show
-    @member = Member.find(params[:id])
+    @member = Member.find(params[:id])     
+    #@member_comments =@member.comments     
+    #create a method in Member model to return all public and the login user's private comments
+    @member_comments =@member.comments.all_public_and_login_user_comments(current_user) 
+    @tot_comments = @member.comments.size
+    @tot_private_comments = @member.comments.find_all_by_share("Private").size        
+    
+    @comment =Comment.new(:share => "Public")       
 
     respond_to do |format|
       format.html # show.html.erb

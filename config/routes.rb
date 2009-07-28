@@ -1,15 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
+  #map.resources :comments
+
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
-  map.resources :users
+  map.signup '/signup', :controller => 'users', :action => 'new'      
+  
+  map.resources :users, :has_many => :comments  
 
   map.resource :session
 
-  map.resources :job_titles
+  map.resources :job_titles, :has_many => :members
 
-  map.resources :members
+  map.resources :members, :has_many => :comments
                                     
   map.root  :controller => "members", :action => "index"
                                                                             
