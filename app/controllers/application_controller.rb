@@ -5,12 +5,23 @@ class ApplicationController < ActionController::Base
   require 'digest/sha1'
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details  
+  helper_method :authenticated?    
   helper_method :authenticate
  
   include AuthenticatedSystem    
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password        
+                                         
+  def authenticated?
+    if !logged_in?
+      flash[:notice] = "You must login to do that"
+      redirect_to :back
+      #redirect_to root_path
+      #redirect_to members_path   #mt add: show user all topics after login
+      false
+    end 
+  end
   
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|

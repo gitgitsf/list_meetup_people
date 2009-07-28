@@ -1,4 +1,7 @@
-class JobTitlesController < ApplicationController
+class JobTitlesController < ApplicationController  
+  before_filter :authenticated?, :except => [:index ] 
+  before_filter :authenticate, :except =>  [:index ]     #for admin
+  
   # GET /job_titles
   # GET /job_titles.xml
   def index
