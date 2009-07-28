@@ -1,33 +1,45 @@
 <p>
-  <b>First:</b>
+ 
   <%=h @member.first %>
-</p>
-
-<p>
-  <b>Last:</b>
-  <%=h @member.last %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%=h @member.email %>
-</p>
-
-<p>
-  <b>Company:</b>
-  <%=h @member.company %>
-</p>
-
-<p>
-  <b>Title:</b>
+  <%=h @member.last %>    
+  (<%=h @member.gender %>)  
+  has <b><%= @tot_comments - @tot_private_comments %> </b>public and
+  <b><%= @tot_private_comments %></b> private comments.
+  <br />
+    
   <%=h @member.job_title.title %>
-</p>
-
-<p>
-  <b>Gender:</b>
-  <%=h @member.gender %>
+   &nbsp;&nbsp; At  
+  <%=h @member.company %> 
+  ,Email:  <%=h @member.email %> 
 </p>
 
 
 <%= link_to 'Edit', edit_member_path(@member) %> |
-<%= link_to 'Back', members_path %>
+<%= link_to 'Back', members_path %>       
+ 
+
+ <h3>Comments: </h3>
+                      
+ 
+ <% form_for([ @member, @comment ]) do |f| %>
+   <%= f.error_messages %>
+   <%= render :partial => 'comments/form', :locals => {:f => f, :button_text =>"Submit"}%>
+
+ <% end %>  
+ 
+  <% for c in @member_comments %> 
+    <p class="<%= cycle('list-line-odd', 'list-line-even')%>"> 
+
+           <%=h c.content %>  
+      <br><em> By <%= c.user.login %> 
+      On    <%= c.created_at %>.
+      This is a <%= c.share %> comment. </em>
+    
+      </p>                
+
+       <%#= link_to 'Delete', c.member_id, c.id, :confirm => 'Are you sure?', :method => :delete %>
+  
+  <% end %> 
+              
+ 
+

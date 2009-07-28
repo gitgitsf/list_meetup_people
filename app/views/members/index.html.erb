@@ -11,24 +11,26 @@
   </tr>
      
   
-<% @members.each do |member| %>   
+  <% @members.each do |member| %>   
    
-   <tr class="<%= cycle('list-line-odd', 'list-line-even')%>"> 
+     <tr class="<%= cycle('list-line-odd', 'list-line-even')%>"> 
     
-    <td><%=h member.last %></td>  
-    <td><%=h member.first %></td>
-    <td><%=h member.job_title.title %></td>
-    <td><%=h member.company %></td>
-    <td><%=h member.email %></td>   
-    <td><%=h member.gender %></td>  
+      <td><%=link_to( h(member.last), member ) %></td>  
+      <td><%=link_to( h(member.first), member ) %></td>  
     
-    <td><%= link_to 'Show', member %></td>
-    <td><%= link_to 'Edit', edit_member_path(member) %></td>
-    <td><%= link_to 'Destroy', member, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>     
+      <td><%=h member.job_title.title %></td>
+      <td><%=h member.company %></td>
+      <td><%=h member.email %></td>   
+      <td><%=h member.gender %></td>  
+    
+       <%#= link_to 'Show', member %> 
+      <td><%= link_to 'Add Comment', member %></td>
+      <td><%= link_to 'Edit', edit_member_path(member) %></td>
+      <td><%= link_to 'Destroy', member, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>     
             
   
-<% end %>
+  <% end %>  
 </table>
 
 <br />
