@@ -76,9 +76,14 @@ class JobTitlesController < ApplicationController
 
   # DELETE /job_titles/1
   # DELETE /job_titles/1.xml
-  def destroy
-    @job_title = JobTitle.find(params[:id])
-    @job_title.destroy
+  def destroy     
+    #Nobady(admin) can delete a job title that is being used in the system.
+    @job_title = JobTitle.find(params[:id])  
+    if @job_title.members.size > 0
+      flash[:notice] = 'Job title in use, deletion is not allowed.' 
+    else
+      @job_title.destroy   
+    end
 
     respond_to do |format|
       format.html { redirect_to(job_titles_url) }
