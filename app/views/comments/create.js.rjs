@@ -1,0 +1,16 @@
+if flash[:notice]
+  page.insert_html :top, "comments",  :partial => 'comments/comment', :object => @comment 
+                                         
+  page[@comment].highlight 
+  page[:comment_content].clear 
+  page.replace_html  :flash_msg,   "#{flash[:notice]} "   
+  page.visual_effect :highlight, :flash_msg  
+   
+else
+  
+   page.replace_html :flash_msg,  "#{flash[:error]}"
+   page.visual_effect :highlight, :flash_msg  
+           
+end 
+ 
+         

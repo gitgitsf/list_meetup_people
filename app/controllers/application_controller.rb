@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details  
   helper_method :authenticated?    
-  helper_method :authenticate
+  helper_method :authenticate 
+  helper_method :count_member_comments
  
   include AuthenticatedSystem    
 
@@ -29,5 +30,11 @@ class ApplicationController < ActionController::Base
       username == "admin" && (Digest::SHA1.hexdigest(password) == "0583168ad74a1282d2dfe7caacd5859466cdf722")
     end  
   end
-  
+        
+        
+  def count_member_comments(member) 
+    tot_comments = @member.comments.size
+    tot_private_comments = @member.comments.find_all_by_share("Private").size  
+    return    tot_comments,   tot_private_comments
+  end
 end

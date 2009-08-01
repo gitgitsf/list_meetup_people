@@ -97,14 +97,14 @@ class MembersController < ApplicationController
     end
   end    
   
-  def authenticated?
-    if !logged_in?
-      flash[:notice] = "You must login to do that"
-      redirect_to root_path
-      #redirect_to members_path   #mt add: show user all topics after login
-      false
-    end 
-  end     
+  # def authenticated?
+  #     if !logged_in?
+  #       flash[:notice] = "You must login to do that"
+  #       redirect_to root_path
+  #       #redirect_to members_path   #mt add: show user all topics after login
+  #       false
+  #     end 
+  #   end        
     
    
  

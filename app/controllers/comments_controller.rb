@@ -1,8 +1,12 @@
-class CommentsController < ApplicationController
+class CommentsController < ApplicationController   
+   before_filter :authenticate, :only => [:destroy ]      
+  
+  
   # GET /comments
   # GET /comments.xml
-  def index
-    @comments = Comment.all
+  def index      
+    @member = params[:member_id]
+    @comments = @member.comments.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,19 +48,26 @@ class CommentsController < ApplicationController
     
     @comment.user_id =current_user.id
     @comment.member_id = params[:member_id]   
-    @member =Member.find(params[:member_id])
+    @member =Member.find(params[:member_id])   
+    
     respond_to do |format|
       if @comment.save
-        flash[:notice] = 'Comment was successfully created.'
+        flash[:notice] = 'Comment was successfully created.'   
+          
+        # count_member_comments method returns to totals:
+         @tot_comments,  @tot_private_comments = count_member_comments(@member)  
+         # @total_public = ( @tot_comments - @total_private_comments ).to_i
         # format.html { redirect_to(@comment) }
         format.html { redirect_to(@member) }   #want to reddisplay members/show page
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
+        format.js # renders create.js.rjs
       else
         # format.html { render :action => "new" }   
         # how to render to member/show page?
-         flash[:error] = 'Please enter your comment'
+        flash[:error] = 'Please enter your comment'
         format.html { redirect_to(@member) } 
-        format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity } 
+        format.js 
       end
     end
   end

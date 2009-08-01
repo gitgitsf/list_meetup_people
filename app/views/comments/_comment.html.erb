@@ -1,0 +1,10 @@
+ <p id=<%="comment_#{comment.id}" %> class="<%= cycle('list-line-odd', 'list-line-even')%>"> 
+
+    <%=h comment.content %>  
+    <br><em> By <%= comment.user.login %> 
+    On    <%= comment.created_at %>.
+    This is a <%= comment.share %> comment. </em>
+  
+    </p>                
+
+     <%#= link_to 'Delete', c.member_id, c.id, :confirm => 'Are you sure?', :method => :delete %>
